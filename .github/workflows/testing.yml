@@ -1,6 +1,6 @@
 name: Stage build
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [workflow-dispatch]
+on: [workflow_dispatch]
 jobs:
   Explore-GitHub-Actions:
     runs-on: mammdoo-runner-sine
