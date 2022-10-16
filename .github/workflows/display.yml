@@ -5,7 +5,7 @@ jobs:
   Before:
     name: script for before 
     runs-on: ubuntu-latest
-    output:
+    outputs:
       svcname: ${{ steps.convert_repo_to_fqdn.outputs.svcname }}
     steps:
       - name: Dump GitHub context
@@ -23,4 +23,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: display svcname
-        run: echo ${{ needs.Before.output.svcnname }}
+        run: echo ${{ needs.Before.outputs.svcnname }}
