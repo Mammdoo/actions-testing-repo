@@ -6,8 +6,7 @@ jobs:
     name: script for before 
     runs-on: ubuntu-latest
     outputs:
-      svcname: ${{ steps.convert_repo_to_fqdn.outputs.svcname }}
-      svcname2: ${{ steps.testing_output.outputs.svcname }}
+      svcname: ${{ steps.testing_output.outputs.svcname }}
     steps:
       - name: Dump GitHub context
         id: github_context_step
@@ -19,9 +18,8 @@ jobs:
         run: |
           SVCNAME=$(echo ${{ github.repository }} | sed 's|${{ github.repository_owner }}/||g' | sed 's|_|-|g' | sed 's|[A-Z][a-z]|-&|g' | sed 's|[A-Z][A-Z]\+|-&|g' | tr 'A-Z' 'a-z' | sed 's|^-||g')
           echo $SVCNAME
-          echo "::set-output name=svcname::private"
       - id: testing_output
-        run: echo "::set-output name=svcname::private"
+        run: echo "::set-output name=svcname::${SVCNAME}"
 
   Baking:
     runs-on: ubuntu-latest
@@ -30,4 +28,3 @@ jobs:
       - name: display svcname
         run: | 
           echo value1 ${{ needs.Before.outputs.svcnname }}
-          echo value2 ${{ needs.Before.outputs.svcname2 }}
