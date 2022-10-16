@@ -2,11 +2,25 @@ name: Context testing
 on: push
 
 jobs:
-  dump_contexts_to_log:
-    runs-on: self-hosted
+  Before:
+    name: script for before 
+    runs-on: ubuntu-latest
+    output:
+      svcname: ${{ steps.convert_repo_to_fqdn.outputs.svcname }}
     steps:
       - name: Dump GitHub context
         id: github_context_step
         run: echo '${{ toJSON(github) }}'
       - name: call another action
         uses: mammdoo/actions-demo-composite@main
+      - id: convert_repo_to_fqdn
+        name: Get repo convert to
+        run: |
+          SVCNAME=$(echo ${{ github.repository }} | sed s'|${{ github.repository_owner }}/||g' | sed 's|_|-|g' | sed 's|[A-Z][a-z]|-&|g' | sed 's|[A-Z][A-Z]\+|-&|g' | tr 'A-Z' 'a-z' | sed 's|^-||g')
+          echo "::set-output name=svcname::$SVCNAME"
+
+  Baking:
+    runs-on: ubuntu-latest
+    steps:
+      - name: display svcname
+        run: echo ${{ needs.Before.output.svcnname }}
