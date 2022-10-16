@@ -22,6 +22,7 @@ jobs:
 
   Baking:
     runs-on: ubuntu-latest
+    needs: [Before]
     steps:
       - name: display svcname
         run: echo ${{ needs.Before.outputs.svcnname }}
