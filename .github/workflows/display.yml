@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       svcname: ${{ steps.convert_repo_to_fqdn.outputs.svcname }}
+      svcname2: ${{ steps.testing_output.outputs.svcname }}
     steps:
       - name: Dump GitHub context
         id: github_context_step
@@ -14,15 +15,19 @@ jobs:
       - name: call another action
         uses: mammdoo/actions-demo-composite@main
       - id: convert_repo_to_fqdn
-        name: Get repo convert to
+        name: Get repo convert to FQDN
         run: |
           SVCNAME=$(echo ${{ github.repository }} | sed 's|${{ github.repository_owner }}/||g' | sed 's|_|-|g' | sed 's|[A-Z][a-z]|-&|g' | sed 's|[A-Z][A-Z]\+|-&|g' | tr 'A-Z' 'a-z' | sed 's|^-||g')
           echo $SVCNAME
-          echo "::set-output name=svcname::private-hello"
+          echo "::set-output name=svcname::private"
+      - id: testing_output
+        run: echo "::set-output name=svcname::private"
 
   Baking:
     runs-on: ubuntu-latest
     needs: [Before]
     steps:
       - name: display svcname
-        run: echo ${{ needs.Before.outputs.svcnname }}
+        run: | 
+          echo value1 ${{ needs.Before.outputs.svcnname }}
+          echo value2 ${{ needs.Before.outputs.svcname2 }}
