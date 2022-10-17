@@ -3,7 +3,6 @@ on: push
 
 jobs:
   Before:
-    name: script for before 
     runs-on: ubuntu-latest
     outputs:
       svcname: ${{ steps.convert_repo_to_fqdn.outputs.svcname }}
