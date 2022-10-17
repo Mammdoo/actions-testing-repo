@@ -12,8 +12,10 @@ jobs:
         name: Get repo convert to FQDN
         run: |
           echo '::set-output name=svcname::value1'
+      - name: print repo name
           SVCNAME=$(echo ${{ github.repository }} | sed 's|${{ github.repository_owner }}/||g' | sed 's|_|-|g' | sed 's|[A-Z][a-z]|-&|g' | sed 's|[A-Z][A-Z]\+|-&|g' | tr 'A-Z' 'a-z' | sed 's|^-||g')
-
+          echo $SVCNAME
+          
   Baking:
     runs-on: ubuntu-latest
     needs: [Before]
