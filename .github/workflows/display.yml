@@ -6,7 +6,7 @@ jobs:
     name: script for before 
     runs-on: ubuntu-latest
     outputs:
-      svcname: ${{ steps.convert_repo_to_fqdn.outputs.val }}
+      svcname: ${{ steps.convert_repo_to_fqdn.outputs.svcname }}
       svcname2: ${{ steps.testing_output.outputs.svcname }}
     steps:
       - id: convert_repo_to_fqdn
