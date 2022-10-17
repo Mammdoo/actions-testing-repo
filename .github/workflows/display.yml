@@ -8,16 +8,11 @@ jobs:
     outputs:
       svcname: ${{ steps.convert_repo_to_fqdn.outputs.svcname }}
     steps:
-      - name: Dump GitHub context
-        id: github_context_step
-        run: echo '${{ toJSON(github) }}'
-      - name: call another action
-        uses: mammdoo/actions-demo-composite@main
       - id: convert_repo_to_fqdn
         name: Get repo convert to FQDN
         run: |
           SVCNAME=$(echo ${{ github.repository }} | sed 's|${{ github.repository_owner }}/||g' | sed 's|_|-|g' | sed 's|[A-Z][a-z]|-&|g' | sed 's|[A-Z][A-Z]\+|-&|g' | tr 'A-Z' 'a-z' | sed 's|^-||g')
-          echo "::set-output name=svcname::this-is-value"
+          echo ''::set-output name=svcname::value1'
 
   Baking:
     runs-on: ubuntu-latest
