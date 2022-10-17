@@ -6,7 +6,7 @@ jobs:
     name: script for before 
     runs-on: ubuntu-latest
     outputs:
-      svcname: ${{ steps.testing_output.outputs.svcname }}
+      svcname: ${{ steps.convert_repo_to_fqdn.outputs.svcname }}
     steps:
       - name: Dump GitHub context
         id: github_context_step
@@ -17,10 +17,7 @@ jobs:
         name: Get repo convert to FQDN
         run: |
           SVCNAME=$(echo ${{ github.repository }} | sed 's|${{ github.repository_owner }}/||g' | sed 's|_|-|g' | sed 's|[A-Z][a-z]|-&|g' | sed 's|[A-Z][A-Z]\+|-&|g' | tr 'A-Z' 'a-z' | sed 's|^-||g')
-      - run: echo $SVCNAME
-      - id: testing_output
-        name: testing_output
-        run: echo "::set-output name=svcname::${SVCNAME}"
+          echo "::set-output name=svcname::this-is-value"
 
   Baking:
     runs-on: ubuntu-latest
