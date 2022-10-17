@@ -13,8 +13,7 @@ jobs:
         name: Get repo convert to FQDN
         run: |
           SVCNAME=$(echo ${{ github.repository }} | sed 's|${{ github.repository_owner }}/||g' | sed 's|_|-|g' | sed 's|[A-Z][a-z]|-&|g' | sed 's|[A-Z][A-Z]\+|-&|g' | tr 'A-Z' 'a-z' | sed 's|^-||g')
-          echo $SVCNAME
-          echo "::set-output name=val::private"
+          echo "::set-output name=svcname::${SVCNAME}"
       - id: testing_output
         name: Testing OUTPUT
         run: echo "::set-output name=svcname::private"
@@ -25,5 +24,5 @@ jobs:
     steps:
       - name: display svcname
         run: | 
-          echo value1 ${{ needs.Before.outputs.svcnname }}
+          echo value1 ${{ needs.Before.outputs.svcname }}
           echo value2 ${{ needs.Before.outputs.svcname2 }}
