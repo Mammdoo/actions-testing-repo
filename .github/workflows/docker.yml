@@ -1,5 +1,5 @@
-name: Mammdoo unified workflow
-run-name: Unified standlone workflow
+name: docker workflow
+run-name: Unified docker workflow
 on: [push]
 jobs:
   Baking:
